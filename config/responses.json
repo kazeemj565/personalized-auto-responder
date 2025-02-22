@@ -1,7 +1,9 @@
 {
-    "hello": "Hi! How can I help you today?",
+    "hello": "Hi [Name]! How can I help you today?",
     "hi": "Hello! What can I do for you?",
-    "help": "Sure! What do you need help with?",
-    "bye": "Goodbye! Have a great day!",
-    "thanks": "You're welcome! Let me know if you need anything else."
-}
+    "help": "I'm here to help! What do you need assistance with?",
+    "bye": "Goodbye! Have a great day!"
+  }
+  
+
+
