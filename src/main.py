@@ -1,49 +1,16 @@
-# import json
-# from fastapi import FastAPI, Request
-
-# app = FastAPI()
-
-# # Load keyword-response mappings
-# def load_responses():
-#     with open("config/responses.json", "r") as file:
-#         return json.load(file)
-
-# responses = load_responses()
-
-# @app.post("/webhook")
-# async def receive_message(request: Request):
-#     data = await request.json()
-#     message_text = data.get("message", "").lower()  # Convert message to lowercase
-    
-#     # Check for a matching keyword
-#     for keyword, response in responses.items():
-#         if keyword in message_text:
-#             return {"response": response}
-
-#     # Default response if no keywords match
-#     return {"response": "I'm not sure I understand. Can you clarify?"}
-
-# if __name__ == "__main__":
-#     import uvicorn
-#     uvicorn.run(app, host="0.0.0.0", port=8000)
-
-
-
-
 import json
 import requests
 import time
 import threading
 import logging
 from contextlib import asynccontextmanager
-
 from datetime import datetime, timezone
 from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("auto_responder")
-
 
 # Load keyword-response mapping from a JSON file
 def load_responses():
@@ -58,7 +25,6 @@ def load_responses():
 usage_log = {}
 
 responses = load_responses()
-
 
 def keep_alive(url: str, interval: int):
     while True:
@@ -82,6 +48,8 @@ async def lifespan(app: FastAPI):
 # Create the FastAPI app with the lifespan context
 app = FastAPI(lifespan=lifespan)
 
+# Mount the static directory to serve files (e.g., integration JSON)
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.post("/webhook")
 async def receive_message(request: Request):
