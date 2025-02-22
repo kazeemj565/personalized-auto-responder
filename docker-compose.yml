@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: auto-responder
+    image: kazeemj565/personalized-auto-responder:latest
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=production
