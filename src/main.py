@@ -80,9 +80,9 @@ async def receive_message(request: Request):
 def read_root():
     return {
         "code": 200,
-        "message": "Welcome to the Personalized Auto-Responder!"
-        "status": "success"
-        }
+        "message": "Welcome to the Personalized Auto-Responder!",
+        "status": "success",
+    }
 
 if __name__ == "__main__":
     import uvicorn
