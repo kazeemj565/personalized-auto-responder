@@ -40,7 +40,7 @@ async def lifespan(app: FastAPI):
     # Startup: start the keep-alive thread
     keep_alive_url = "https://personalized-auto-responder-1.onrender.com/"  # Replace with your actual Render URL
     thread = threading.Thread(target=keep_alive, args=(keep_alive_url, 30))
-    thread.daemon = True  # Ensure thread exits with the application
+    thread.daemon = True  
     thread.start()
     yield
     # Shutdown: perform any cleanup if needed
@@ -63,7 +63,6 @@ async def receive_message(request: Request):
     for keyword, response in responses.items():
         if keyword in message_text:
             selected_response = response.replace("[Name]", sender_name)
-            # Log the usage: increment count for the keyword
             usage_log[keyword] = usage_log.get(keyword, 0) + 1
             logger.info("Keyword '%s' triggered. Total count: %d", keyword, usage_log[keyword])
             break
@@ -75,17 +74,11 @@ async def receive_message(request: Request):
     # Log the entire message received with a timestamp
     logger.info("Received message: %s", data)
 
-    # Return the personalized response
     return {"response": selected_response}
 
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the Personalized Auto-Responder!"}
-
-
-# if __name__ == "__main__":
-#     import uvicorn
-#     uvicorn.run(app, host="0.0.0.0", port=8001, reload=True)
 
 
 if __name__ == "__main__":

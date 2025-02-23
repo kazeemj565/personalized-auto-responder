@@ -6,7 +6,7 @@
       },
       "descriptions": {
         "app_description": "This integration automatically detects predefined keywords in incoming Telex channel messages and sends personalized text responses to enhance team communication.",
-        "app_logo": "https://yourdomain.com/path/to/logo.png",
+        "app_logo": "https://yourapp.onrender.com/static/images/logo.png",
         "app_name": "Personalized Auto-Responder",
         "app_url": "https://personalized-auto-responder-1.onrender.com",
         "background_color": "#1A73E8"
