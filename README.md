@@ -65,7 +65,7 @@ The **Personalized Auto-Responder** is a Telex integration designed to automatic
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/<your-username>/personalized-auto-responder.git
+   git clone https://github.com/kazeemj56/personalized-auto-responder.git
    cd personalized-auto-responder
    ```
 
