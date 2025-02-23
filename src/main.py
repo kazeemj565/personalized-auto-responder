@@ -78,6 +78,19 @@ async def receive_message(request: Request):
     # Return the personalized response
     return {"response": selected_response}
 
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the Personalized Auto-Responder!"}
+
+
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(app, host="0.0.0.0", port=8001, reload=True)
+
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8001, reload=True)
+    import os
+
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
