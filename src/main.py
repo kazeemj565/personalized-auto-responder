@@ -7,6 +7,7 @@ from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -76,10 +77,42 @@ async def receive_message(request: Request):
 
     return {"response": selected_response}
 
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to the Personalized Auto-Responder!"}
+# @app.get("/")
+# def read_root():
+#     return {"message": "Welcome to the Personalized Auto-Responder!"}
 
+
+# GET route for a descriptive landing page (shows integration details)
+@app.get("/", response_class=HTMLResponse)
+def read_root():
+    return """
+    <html>
+      <head>
+        <title>Personalized Auto-Responder</title>
+        <style>
+          body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f4; }
+          .container { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+          h1 { color: #1A73E8; }
+          ul { line-height: 1.6; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Personalized Auto-Responder</h1>
+          <p>This integration automatically detects predefined keywords in incoming Telex channel messages and sends personalized text responses to enhance team communication.</p>
+          <p><strong>Key Features:</strong></p>
+          <ul>
+            <li>Real-time keyword detection</li>
+            <li>Personalized responses using sender information</li>
+            <li>Customizable via JSON configuration</li>
+            <li>Usage logging for performance refinement</li>
+          </ul>
+          <p>To integrate this app, ensure that your channel messages are routed to our webhook endpoint:</p>
+          <p><code>https://personalized-auto-responder-1.onrender.com/webhook</code></p>
+        </div>
+      </body>
+    </html>
+    """
 
 if __name__ == "__main__":
     import uvicorn
