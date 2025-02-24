@@ -26,27 +26,29 @@ usage_log = {}
 
 responses = load_responses()
 
-def keep_alive(url: str, interval: int):
-    while True:
-        try:
-            response = requests.get(url)
-            logger.info(f"Reloaded at {datetime.now(timezone.utc).isoformat()}: Status Code {response.status_code}")
-        except Exception as e:
-            logger.error(f"Error reloading at {datetime.now(timezone.utc).isoformat()}: {str(e)}")
-        time.sleep(interval)
+# def keep_alive(url: str, interval: int):
+#     while True:
+#         try:
+#             response = requests.get(url)
+#             logger.info(f"Reloaded at {datetime.now(timezone.utc).isoformat()}: Status Code {response.status_code}")
+#         except Exception as e:
+#             logger.error(f"Error reloading at {datetime.now(timezone.utc).isoformat()}: {str(e)}")
+#         time.sleep(interval)
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Startup: start the keep-alive thread
-    keep_alive_url = "https://personalized-auto-responder-1.onrender.com/"  
-    thread = threading.Thread(target=keep_alive, args=(keep_alive_url, 50))
-    thread.daemon = True  
-    thread.start()
-    yield
+# @asynccontextmanager
+# async def lifespan(app: FastAPI):
+#     # Startup: start the keep-alive thread
+#     keep_alive_url = "https://personalized-auto-responder-1.onrender.com/"  
+#     thread = threading.Thread(target=keep_alive, args=(keep_alive_url, 50))
+#     thread.daemon = True  
+#     thread.start()
+#     yield
    
 
-# Create the FastAPI app with the lifespan context
-app = FastAPI(lifespan=lifespan)
+# # Create the FastAPI app with the lifespan context
+# app = FastAPI(lifespan=lifespan)
+
+app = FastAPI()
 
 # Mount the static directory to serve files (e.g., integration JSON)
 app.mount("/static", StaticFiles(directory="static"), name="static")
