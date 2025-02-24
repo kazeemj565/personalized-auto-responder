@@ -38,12 +38,12 @@ def keep_alive(url: str, interval: int):
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup: start the keep-alive thread
-    keep_alive_url = "https://personalized-auto-responder-1.onrender.com/"  # Replace with your actual Render URL
-    thread = threading.Thread(target=keep_alive, args=(keep_alive_url, 30))
+    keep_alive_url = "https://personalized-auto-responder-1.onrender.com/"  
+    thread = threading.Thread(target=keep_alive, args=(keep_alive_url, 50))
     thread.daemon = True  
     thread.start()
     yield
-    # Shutdown: perform any cleanup if needed
+   
 
 # Create the FastAPI app with the lifespan context
 app = FastAPI(lifespan=lifespan)
@@ -55,7 +55,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 async def receive_message(request: Request):
     data = await request.json()
     message_text = data.get("message", "").lower()
-    sender_name = data.get("sender", "User")  # Optional: use a sender field if available
+    sender_name = data.get("sender", "User")  
 
     selected_response = None
 
@@ -71,7 +71,6 @@ async def receive_message(request: Request):
     if not selected_response:
         selected_response = "Could you please clarify what you mean?"
 
-    # Log the entire message received with a timestamp
     logger.info("Received message: %s", data)
 
     return {"response": selected_response}
