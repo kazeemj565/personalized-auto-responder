@@ -75,7 +75,7 @@ async def receive_message(request: Request):
 
     logger.info("Received message: %s", data)
 
-    return {"response": selected_response}
+    return {"message": selected_response}
 
 @app.get("/")
 def read_root():
