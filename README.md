@@ -113,9 +113,9 @@ uvicorn src.main:app --reload --port 8000
 
 You should see a response like:
 ```json
-{"response": "Hi Alice! How can I help you today?"}
+{"message": "Hi Alice! How can I help you today?"}
 ```
-
+![alt text](image.png)
 ---
 
 ## Testing
@@ -169,7 +169,7 @@ This file includes your `app_name`, `app_logo`, `integration_type`, and `target_
 ## Integrating with Telex
 
 1. **Obtain the Hosted JSON URL**:
-   - For example: `https://personalized-auto-responder-1.onrender.com/static/integration.json`.
+   - `https://personalized-auto-responder-1.onrender.com/static/integration.json`.
 2. **Open Telex**:
    - Go to your workspace or test organization.
    - In “Integrations” (or “Manage Apps”), look for an “Add Integration” or “Add New” button.
